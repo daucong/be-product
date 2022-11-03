@@ -2,7 +2,6 @@ package com.example.beproduct.service;
 
 import com.example.beproduct.entity.Product;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

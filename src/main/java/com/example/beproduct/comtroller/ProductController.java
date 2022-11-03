@@ -26,16 +26,21 @@ public class ProductController {
     }
 
     @GetMapping("/api/products/paging")
-    public Paging pagingProduct(@RequestParam("page") int page,
-                              @RequestParam("limit") int limit) {
+    public Paging pagingProduct(@RequestParam("page") int currentPage,
+                                @RequestParam("limit") int limit,
+                                @RequestParam("sortname") String sortName,
+                                @RequestParam("sortby") String sortBy) {
         Paging result = new Paging();
-        result.setPage(page);
-        result.setListResult(productService.getProductByPage(PageRequest.of(page-1,limit, Sort.by(Sort.Direction.ASC, "id"))));
+        result.setCurrentPage(currentPage);
+        //currentPage - 1 vì nó bđ từ phần tử thứ 0 nhưng ta chạy từ 1 nên phải trừ đi 1
+        result.setListResult(productService.getProductByPage(PageRequest.of(currentPage - 1,limit,Sort.by(Sort.Direction.fromString(sortName), sortBy))));
+        result.setSortname(sortName);
+        result.setSortby(sortBy);
         double kq = productService.totalItem() % limit;
         if (kq != 0){
-            result.setTotalPage(Math.ceil((productService.totalItem()) / limit) + 1);
+            result.setTotalPage((int) (Math.ceil((productService.totalItem()) / limit) + 1));
         }else {
-            result.setTotalPage(Math.ceil((productService.totalItem()) / limit));
+            result.setTotalPage((int) Math.ceil((productService.totalItem()) / limit));
         }
         return result;
     }

@@ -7,7 +7,9 @@ import java.util.List;
 
 @Data
 public class Paging {
-    private int page;
-    private double totalPage;
+    private int currentPage;
+    private int totalPage;
+    private String sortname;
+    private String sortby;
     private List<Product> listResult;
 }
