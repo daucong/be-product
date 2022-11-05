@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
@@ -21,6 +22,11 @@ public class CategoryController {
     //add
     @PostMapping("/api/categories/")
     public void addCategory(@RequestBody Category category){
+        String oldCategory= category.getName();
+        Category newName = categoryService.getCategoryByName(oldCategory);
+        if(newName!=null) {
+            System.out.println( "Tên danh mục đã tồn tại");
+        }
         categoryService.saveCategory(category);
     }
 
