@@ -6,7 +6,9 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface BaseService<T> {
-    Page<T> getAllPagingAndSorting(Pageable pageable);
+    Page<T> getAllPagingAndSorting(Pageable pageable, String query);
+
+    Page<T> getAll(Pageable pageable);
 
     List<T> getAlllist();
 
@@ -15,4 +17,5 @@ public interface BaseService<T> {
     T saveOrUpdate(T entity);
 
     boolean delete(Integer id);
+
 }

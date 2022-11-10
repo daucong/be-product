@@ -30,14 +30,25 @@ public class ProductController {
         return productService.getOneById(id);
     }
 
+//    @GetMapping("")
+//    public Page<Product> pagingProduct(@RequestParam("page") int currentPage,
+//                                       @RequestParam("limit") int limit,
+//                                       @RequestParam("sortname") String sortName,
+//                                       @RequestParam("sortby") String sortBy) {
+//        Sort sort = Sort.by(Sort.Direction.fromString(sortName), sortBy);
+//        Pageable pageable = PageRequest.of(currentPage - 1, limit, sort);
+//        return productService.getAll(pageable);
+//    }
+
     @GetMapping("")
-    public Page<Product> pagingProduct(@RequestParam("page") int currentPage,
+    public Page<Product> pagingAndSearchProduct(@RequestParam("page") int currentPage,
                                        @RequestParam("limit") int limit,
                                        @RequestParam("sortname") String sortName,
-                                       @RequestParam("sortby") String sortBy) {
+                                       @RequestParam("sortby") String sortBy,
+                                       @RequestParam("query") String query) {
         Sort sort = Sort.by(Sort.Direction.fromString(sortName), sortBy);
         Pageable pageable = PageRequest.of(currentPage - 1, limit, sort);
-        return productService.getAllPagingAndSorting(pageable);
+        return productService.getAllPagingAndSorting(pageable,query);
     }
 
     @DeleteMapping("/{id}")

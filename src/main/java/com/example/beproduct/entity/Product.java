@@ -11,7 +11,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 128, nullable = false, unique = true)
+    @Column(length = 128, nullable = false)
     private String name;
     private float price;
 

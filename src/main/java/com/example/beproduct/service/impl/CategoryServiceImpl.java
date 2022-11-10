@@ -1,8 +1,10 @@
 package com.example.beproduct.service.impl;
 
 import com.example.beproduct.entity.Category;
+import com.example.beproduct.entity.Product;
 import com.example.beproduct.output.Exception;
 import com.example.beproduct.repository.CategoryRepository;
+import com.example.beproduct.repository.ProductRepository;
 import com.example.beproduct.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,9 +20,16 @@ public class CategoryServiceImpl implements BaseService<Category> {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
-    public Page<Category> getAllPagingAndSorting(Pageable pageable) {
+    public Page<Category> getAllPagingAndSorting(Pageable pageable, String query) {
+        return null;
+    }
+
+    @Override
+    public Page<Category> getAll(Pageable pageable) {
         return null;
     }
 
@@ -46,9 +55,14 @@ public class CategoryServiceImpl implements BaseService<Category> {
 
     @Override
     public boolean delete(Integer id) {
+        Product product = productRepository.findById(id).get();
+        if(product.getCategory().getId()==id){
+            throw new Exception("Bạn phải xóa hết sản phẩm có liên quan đến danh mục muốn xóa!!!");
+        }
         categoryRepository.deleteById(id);
         return false;
     }
+
 //    @Autowired
 //    private CategoryRepository categoryRepository;
 //

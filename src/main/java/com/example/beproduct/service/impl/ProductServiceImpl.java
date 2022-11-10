@@ -1,6 +1,7 @@
 package com.example.beproduct.service.impl;
 
 import com.example.beproduct.entity.Product;
+import com.example.beproduct.output.Exception;
 import com.example.beproduct.repository.ProductRepository;
 import com.example.beproduct.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,22 @@ public class ProductServiceImpl implements BaseService<Product> {
     private ProductRepository productRepository;
 
     @Override
-    public Page<Product> getAllPagingAndSorting(Pageable pageable) {
+    public Page<Product> getAllPagingAndSorting(Pageable pageable, String query) {
+        if (query==null || query.equals("null") || query.isEmpty())
+            return productRepository.findAll(pageable);
+        if (productRepository.getAllPagingAndSorting(pageable,query).isEmpty()){
+            throw new Exception("Không tìm thấy phần tử nào!!!");
+        }
+        if(query.length()>1)
+//            throw new Exception("Nhập sai!! query phải > 2 phần tử");
+            return productRepository.getAllPagingAndSorting(pageable, query);
+        else
+            return productRepository.findAll(pageable);
+    }
+
+
+    @Override
+    public Page<Product> getAll(Pageable pageable) {
         return productRepository.findAll(pageable);
     }
 
