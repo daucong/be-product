@@ -14,7 +14,7 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
 
     @Query(value =
             "SELECT * FROM product p, category c " +
-            "WHERE p.category_id = c.id and p.name LIKE (%:query%)",
+            "WHERE p.category_id = c.id and p.name LIKE %:query%",
              countQuery = "SELECT count(*) FROM product " ,nativeQuery = true)
     Page<Product> getAllPagingAndSorting(Pageable pageable, @Param("query") String query);
     List<Product> findAllByCategory_Id(Integer id);

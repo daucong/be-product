@@ -57,7 +57,7 @@ public class CategoryServiceImpl implements BaseService<Category> {
     public boolean delete(Integer id) {
         List<Product> product = productRepository.findAllByCategory_Id(id);
         if(product.size()>0){
-            throw new Exception("Bạn phải xóa hết sản phẩm có liên quan đến danh mục muốn xóa!!!");
+            throw new Exception("Bạn phải xóa hết các sản phẩm có liên quan đến danh mục trước!!!");
         }
         categoryRepository.deleteById(id);
         return false;
