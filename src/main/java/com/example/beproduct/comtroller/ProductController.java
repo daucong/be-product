@@ -26,16 +26,6 @@ public class ProductController {
         return productService.getOneById(id);
     }
 
-//    @GetMapping("")
-//    public Page<Product> pagingProduct(@RequestParam("page") int currentPage,
-//                                       @RequestParam("limit") int limit,
-//                                       @RequestParam("sortname") String sortName,
-//                                       @RequestParam("sortby") String sortBy) {
-//        Sort sort = Sort.by(Sort.Direction.fromString(sortName), sortBy);
-//        Pageable pageable = PageRequest.of(currentPage - 1, limit, sort);
-//        return productService.getAll(pageable);
-//    }
-
     @GetMapping("")
     public Page<Product> pagingAndSearchProduct(@RequestParam("page") int currentPage,
                                        @RequestParam("limit") int limit,
@@ -51,24 +41,4 @@ public class ProductController {
     public void DeleteProduct(@PathVariable("id") Integer id) {
         productService.delete(id);
     }
-
-//    @GetMapping("")
-//    public Paging pagingProduct(@RequestParam("page") int currentPage,
-//                                @RequestParam("limit") int limit,
-//                                @RequestParam("sortname") String sortName,
-//                                @RequestParam("sortby") String sortBy) {
-//        Paging result = new Paging();
-//        result.setCurrentPage(currentPage);
-//        //currentPage - 1 vì nó bđ từ phần tử thứ 0 nhưng ta chạy từ 1 nên phải trừ đi 1
-//        result.setListResult(productService.getProductByPage(PageRequest.of(currentPage - 1,limit,Sort.by(Sort.Direction.fromString(sortName), sortBy))));
-//        result.setSortname(sortName);
-//        result.setSortby(sortBy);
-//        double kq = productService.totalItem() % limit;
-//        if (kq != 0){
-//            result.setTotalPage((int) (Math.ceil((productService.totalItem()) / limit) + 1));
-//        }else {
-//            result.setTotalPage((int) Math.ceil((productService.totalItem()) / limit));
-//        }
-//        return result;
-//    }
 }
